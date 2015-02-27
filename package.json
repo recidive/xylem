@@ -1,6 +1,6 @@
 {
   "name": "xylem",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cross database object persistence for Node.js.",
   "main": "index.js",
   "scripts": {
