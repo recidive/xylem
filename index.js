@@ -99,7 +99,7 @@ Server.prototype.parseSettingsURL = function(settingsURL) {
     adapter: 'protocol',
     hostname: 'hostname',
     port: 'port',
-    path: 'pathname'
+    database: 'pathname'
   };
 
   for (var setting in settingsMap) {
@@ -109,6 +109,11 @@ Server.prototype.parseSettingsURL = function(settingsURL) {
     if (property == 'protocol') {
       // Remove colon from protocol.
       value = value.substring(0, value.length - 1);
+    }
+
+    if (property == 'pathname') {
+      // Remove slash from pathname.
+      value = value.substring(1, value.length);
     }
 
     if (property in urlInfo) {
