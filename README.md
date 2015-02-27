@@ -17,8 +17,10 @@ Differently from other ORM/ODM tools out there, Xylem allows you to reference an
 ### Creating connections
 
 ```js
-var server = require('xylem');
+var Server = require('xylem');
 var MongoDB = require('xylem-mongodb');
+
+var server = new Server();
 
 server
   .adapter('mongodb', MongoDB)
@@ -56,7 +58,7 @@ john.save(function (error, john) {
   // Get a list of contacts.
   Contact.list({}, function (error, contacts) {
     console.log(contacts);
-  })
+  });
 });
 ```
 
