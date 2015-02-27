@@ -81,6 +81,9 @@ Server.prototype.model = function(name, settings) {
     return this.error('Unknown storage ' + settings.storage + '.');
   }
 
+  // Add name to model settings.
+  settings.name = name;
+
   this.storage.model(name, Model.compile(connection, settings));
 
   return this;
