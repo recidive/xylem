@@ -1,0 +1,30 @@
+{
+  "name": "xylem",
+  "version": "0.0.1",
+  "description": "Cross database object persistence for Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/recidive/xylem.git"
+  },
+  "keywords": [
+    "database",
+    "storage",
+    "nosql",
+    "orm",
+    "odm"
+  ],
+  "author": "Henrique Recidive",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/recidive/xylem/issues"
+  },
+  "homepage": "https://github.com/recidive/xylem",
+  "dependencies": {
+    "async": "^0.9.0",
+    "extend": "^2.0.0"
+  }
+}
