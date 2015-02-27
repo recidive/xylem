@@ -8,15 +8,11 @@ Differently from other ORM/ODM tools out there, Xylem allows you to reference an
 
 ### Installing Xylem
 
-```
-npm install xylem
-```
+    $ npm install xylem
 
 ### Installing an adapter
 
-```
-npm install xylem-mongodb
-```
+    $ npm install xylem-mongodb
 
 ### Creating connections
 
@@ -69,7 +65,7 @@ john.save(function (error, john) {
 Xylem adapters are the bridge between Xylem and the underlying storage system.
 
  - Memory (Built in)
- - MongoDB
+ - [MongoDB](https://github.com/recidive/xylem-mongodb)
 
 ## Lifecycle callbacks
 
