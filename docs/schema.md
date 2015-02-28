@@ -69,7 +69,7 @@ References allow declaring the relationship between your models. The extra prope
 
 ```js
 {
-  embedded: true,
+  connection: 'memory',
   fields: {
     name: 'string',
     phones: {
@@ -89,7 +89,7 @@ Reference fields will use primitive types `array` or `object` whether if it's mu
 
 Embeddable models are models that don't have a connection thus can't have a collection or table created for it. They are used in conjunction with embedded reference fields when you want referenced items to be embedded on the main document.
 
-Embeddable models can't be used as a standalone model so trying to save an item of a embeddable model will trigger errors. Embeddable models don't need a `key` property neither.
+Embeddable models can't be used as a standalone model so trying to save a detached item of an embeddable model will trigger errors. Embeddable models don't need a `key` property neither.
 
 ```js
 {
