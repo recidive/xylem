@@ -25,22 +25,26 @@ For field definitions you can use a simple string with the type name or an objec
 ### String with type name:
 
 ```js
-{
+server.model('person', {
   connection: 'memory',
   fields: {
+    id: 'number',
     name: 'string',
     age: 'number'
   },
   key: 'name'
-}
+});
 ```
 
 ### Object with field settings:
 
 ```js
-{
+server.model('person', {
   connection: 'memory',
   fields: {
+    id: {
+      type: 'number'
+    },
     name: {
       type: 'string'
     },
@@ -51,12 +55,12 @@ For field definitions you can use a simple string with the type name or an objec
     }
   },
   key: 'name'
-}
+});
 ```
 
 All field types have the `required` property. The scalar field types `string`, `integer` and `number` have the `index` and `unique` properties. The `reference` field type has the `reference`, `embedded`, `multiple`, `populate` and `via` properties.
 
-**Note:** field definitions are normalized into objects before being used by Xylem and its components.
+**Note:** field definitions are normalized into objects before being used by Xylem and its components internally.
 
 ### Reference fields
 
@@ -68,9 +72,10 @@ References allow declaring the relationship between your models. The extra prope
  - **via:** set the field that reference this type on the referenced type in a one-to-many relationship.
 
 ```js
-{
+server.model('person', {
   connection: 'memory',
   fields: {
+    id: 'number',
     name: 'string',
     phones: {
       type: 'reference',
@@ -80,7 +85,7 @@ References allow declaring the relationship between your models. The extra prope
     }
   },
   key: 'name'
-}
+});
 ```
 
 Reference fields will use primitive types `array` or `object` whether if it's multiple or not, on the underlying storage, but will be converted to full models when retrieved.
@@ -92,10 +97,40 @@ Embeddable models are models that don't have a connection thus can't have a coll
 Embeddable models can't be used as a standalone model so trying to save a detached item of an embeddable model will trigger errors. Embeddable models don't need a `key` property neither.
 
 ```js
-{
+server.model('phone', {
   fields: {
     type: 'string',
     number: 'string',
   }
-}
+});
 ```
+
+## Mixins
+
+Models can use the `mixins` property to set the models to inherit properties from.
+
+```js
+server.model('post', {
+  fields: {
+    id: 'number',
+    title: 'string',
+    date: 'string',
+  }
+});
+```
+
+```js
+server.model('article', {
+  mixins: ['post'],
+  fields: {
+    image: 'string',
+    body: 'string',
+  }
+});
+```
+
+## Abstract models
+
+An abstract model is a model that doen't have a connection but its main purpose is not to be embeddable, but to be used for declaring a base model or an interface to be used in mixins. Just like the embeddable models, abstract models can't be used standalone.
+
+Abstract models can be used when you need models that share a common set of fields, similar models that persists in different storages, reference fields that references more than one model that share the same abstract model (interface), or models that share the same collection/table on the underlying storage. To accomplish de latter two you can set the `reference` property of the reference field or `name` property of the sub-model to the name of the abstract model respectively.
