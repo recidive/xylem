@@ -104,6 +104,36 @@ server.model('phone', {
 });
 ```
 
+## Methods and statics
+
+You can use the `statics` and `methods` properties to add methods to the model object or its prototype respectively.
+
+```js
+server.model('user', {
+  fields: {
+    username: 'string',
+    password: 'string',
+    statics: {
+      authenticate: function (username, password, callback) {
+        this.get(username, function(error, account) {
+          if (error) {
+            callback(error);
+          }
+
+          callback(null, account && account.checkPassword(password));
+        });
+      }
+    },
+    methods: {
+      checkPassword: function (password) {
+        return this.password == password;
+      }
+    },
+  },
+  key: 'username'
+});
+```
+
 ## Mixins
 
 Models can use the `mixins` property to set the models to inherit properties from.
