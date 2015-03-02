@@ -9,8 +9,7 @@ Schema provides the metadata for models, it contains information about fields, r
 Xylem implements the [JSON schema primitive types](http://json-schema.org/latest/json-schema-core.html#anchor8) plus three more field types (date, datetime and reference).
 
  - string
- - integer
- - number
+ - number (includes integer)
  - boolean
  - array
  - object
