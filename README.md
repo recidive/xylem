@@ -16,6 +16,8 @@ Differently from other ORM/ODM tools out there, Xylem allows you to reference an
 
 ### Creating connections
 
+To create a connection on Xylem first you need to setup an adapter using the `adapter()` method, than you can use the `connection()` method to setup the connection itself.
+
 ```js
 var Server = require('xylem');
 var MongoDB = require('xylem-mongodb');
@@ -28,6 +30,8 @@ server
 ```
 
 ### Creating models
+
+Models can be created with de `model()` method. To learn more about Xylem schema, you can read the [schema documentation](https://github.com/recidive/xylem/blob/master/docs/schema.md).
 
 ```js
 server.model('contact', {
@@ -55,6 +59,11 @@ var john = new Contact({
 john.save(function (error, john) {
   console.log(john);
 
+  // Get John.
+  Contact.get(john.id, function (error, contact) {
+    console.log(contact);
+  });
+
   // Get a list of contacts.
   Contact.list({}, function (error, contacts) {
     console.log(contacts);
@@ -73,23 +82,23 @@ Xylem adapters are the bridge between Xylem and the underlying storage system.
 
 Save operation
 
- - ```beforeSave(settings, item, callback)```
- - ```afterSave(settings, item, callback)```
+ - `beforeSave(settings, item, callback)`
+ - `afterSave(settings, item, callback)`
 
 List operation
 
- - ```beforeList(settings, query, callback)```
- - ```afterList(settings, items, callback)```
+ - `beforeList(settings, query, callback)`
+ - `afterList(settings, items, callback)`
 
 Get operation
 
- - ```beforeGet(settings, key, callback)```
- - ```afterGet(settings, item, callback)```
+ - `beforeGet(settings, key, callback)`
+ - `afterGet(settings, item, callback)`
 
 Destroy operation
 
- - ```beforeDestroy(settings, key, callback)```
- - ```afterDestroy(settings, item, callback)```
+ - `beforeDestroy(settings, key, callback)`
+ - `afterDestroy(settings, item, callback)`
 
 ## Features
 
