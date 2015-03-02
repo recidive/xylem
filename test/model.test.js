@@ -7,7 +7,7 @@ var server;
 var schema = {
   connection: 'ephemeral',
   fields: {
-    id: 'string',
+    id: 'number',
     name: 'string',
     email: 'string'
   },
