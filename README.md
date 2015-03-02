@@ -103,8 +103,8 @@ Destroy operation
 ## Features
 
  - Pluggable adapters
- - Multiple storages
- - Object relationship
- - Polymorphic objects (subtyping)
- - Embedded objects
+ - Multiple connections
+ - Model relationships
+ - Model mixins
+ - Embedded references
  - Query builder
