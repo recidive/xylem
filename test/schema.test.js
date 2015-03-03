@@ -13,7 +13,9 @@ var sampleSchema = {
     },
     active: 'boolean',
     address: 'object',
-    phones: 'array'
+    phones: 'array',
+    dateOfBirth: 'date',
+    lastAccess: 'datetime'
   },
   key: 'id'
 };
@@ -92,6 +94,30 @@ describe('Schema#check', function(done) {
 
     assert.ok(errors instanceof Array);
     assert.equal(errors[0], 'Invalid value "phone string" for field "phones".');
+    done();
+  });
+
+  it('should not allow an invalid date on a date field', function(done) {
+    var errors = schema.check({
+      id: 123,
+      name: 'John',
+      dateOfBirth: 'invalid date'
+    });
+
+    assert.ok(errors instanceof Array);
+    assert.equal(errors[0], 'Invalid value "invalid date" for field "dateOfBirth".');
+    done();
+  });
+
+  it('should not allow an invalid date/time on a datetime field', function(done) {
+    var errors = schema.check({
+      id: 123,
+      name: 'John',
+      lastAccess: 'invalid datetime'
+    });
+
+    assert.ok(errors instanceof Array);
+    assert.equal(errors[0], 'Invalid value "invalid datetime" for field "lastAccess".');
     done();
   });
 
