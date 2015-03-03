@@ -1,6 +1,6 @@
 # Query
 
- > **Disclaimer:** this is a working in progress. Not everything documented here is implemented yet an it's subject to change.
+ > **Disclaimer:** this is a working in progress. Not everything documented here is implemented yet and it's subject to change.
 
 ## The criteria object
 

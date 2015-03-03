@@ -1,6 +1,6 @@
 # Schema
 
- > **Disclaimer:** this is a working in progress. Not everything documented here is implemented yet an it's subject to change.
+ > **Disclaimer:** this is a working in progress. Not everything documented here is implemented yet and it's subject to change.
 
 Schema provides the metadata for models, it contains information about fields, references and what connection the model will use.
 
