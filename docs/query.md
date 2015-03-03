@@ -16,7 +16,7 @@ Model.list({name: 'foo'});
 
 ### Multiple key/value pairs:
 
-A criteria can have multiple key/value pairs that allow narrowing results by ensuring one 'and' the other value has a specific value.
+A criteria can have multiple key/value pairs that allow narrowing results by ensuring one *and* the other value has a specific value.
 
 ```js
 Model.list({name: 'foo', active: true});
@@ -24,7 +24,7 @@ Model.list({name: 'foo', active: true});
 
 ### Find matching from a list:
 
-Values can also be a list of values to allow to search for one 'or' the other value.
+Values can also be a list of values to allow to search for one *or* the other value.
 
 ```js
 Model.list({name: ['foo', 'bar']});
@@ -36,74 +36,74 @@ Operators add more flexibility to criteria by changing how the value is evaluate
 
 ### Logical operators
 
- - or
- - not
+ - `or`
+ - `not`
 
 ### String comparison operators
 
- - contains
- - startsWith
- - endsWith
+ - `contains`
+ - `startsWith`
+ - `endsWith`
 
 ### Numeric comparison operators
 
- - lessThan
- - lessThanOrEqual
- - greaterThan
- - greaterThanOrEqual
+ - `lessThan`
+ - `lessThanOrEqual`
+ - `greaterThan`
+ - `greaterThanOrEqual`
 
 
-### The 'or' operator
+### The `or` operator
 
-The 'or' operator receives a query and makes it matches one 'or' the other values instead of 'and' as it normally does.
+The `or` operator receives a query and makes it matches one *or* the other values instead of *and* as it does by default.
 
 ```js
 Model.list({or: {name: 'foo', active: true}});
 ```
 
-### The 'not' operator
+### The `not` operator
 
-The 'not' operator receives a query and return its reverse. I.e. everything it matches will be filtered out.
+The `not` operator receives a query and return its reverse. I.e. everything it matches will be filtered out.
 
 ```js
 Model.list({not: {name: 'foo'}});
 ```
 
-For convenience you can also use the 'not' operator on field values.
+For convenience you can also use the `not` operator on field values.
 
 ```js
 Model.list({name: {not: 'foo'}});
 ```
 
-Both examples above should have the same results but the latter may be more optimised depending on the adapter implementation.
+Both examples above should have the same results but the latter may be more optimized depending on the adapter implementation.
 
-### The 'contains' operator
+### The `contains` operator
 
-The 'contains' operator allows searching for a string within another and will match values that contains the string in any position.
+The `contains` operator allows searching for a string within another and will match values that contains the string in any position.
 
 ```js
 Model.list({name: {contains: 'foo'}});
 ```
 
-### The 'startsWith' operator
+### The `startsWith` operator
 
-The 'startsWith' operator allows searching for a string within another and will match values that start with the string.
+The `startsWith` operator allows searching for a string within another and will match values that start with the string.
 
 ```js
 Model.list({name: {startsWith: 'foo'}});
 ```
 
-### The 'endsWith' operator
+### The `endsWith` operator
 
-The 'endsWith' operator allows searching for a string within another and will match values that end with the string.
+The `endsWith` operator allows searching for a string within another and will match values that end with the string.
 
 ```js
 Model.list({name: {endsWith: 'foo'}});
 ```
 
-### The 'lessThan', 'lessThanOrEqual', 'greaterThan' and 'greaterThanOrEqual' operators
+### The `lessThan`, `lessThanOrEqual`, `greaterThan` and `greaterThanOrEqual` operators
 
-The 'lessThan', 'lessThanOrEqual', 'greaterThan' and 'greaterThanOrEqual' operators allows matching numeric values that are less than or greather than the operator value, allowing the value itself to be included or not on the matched items.
+The `lessThan`, `lessThanOrEqual`, `greaterThan` and  `greaterThanOrEqual` operators allows matching numeric values that are less than or greater than the operator value, allowing the value itself to be included or not on the matched items.
 
 ```js
 Model.list({points: {greaterThan: 100}, age: {greatherThanOrEqual: 18}});
@@ -111,7 +111,7 @@ Model.list({points: {greaterThan: 100}, age: {greatherThanOrEqual: 18}});
 
 ### Reserved words (field names)
 
-Due to operators being standard object properties, no field can be named the same as any of the nine operators (or, not, contains, startsWith, endsWith, lessThan, lessThanOrEqual, greaterThan, greaterThanOrEqual).
+Due to operators being standard object properties, no field can be named the same as any of the nine operators (`or`, `not`, `contains`, `startsWith`, `endsWith`, `lessThan`, `lessThanOrEqual`, `greaterThan`, `greaterThanOrEqual`).
 
 ## FAQ
 
