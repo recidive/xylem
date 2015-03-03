@@ -128,7 +128,7 @@ server.model('user', {
       checkPassword: function (password) {
         return this.password == password;
       }
-    },
+    }
   },
   key: 'username'
 });
@@ -160,6 +160,6 @@ server.model('article', {
 
 ## Abstract models
 
-An abstract model is a model that doen't have a connection but its main purpose is not to be embeddable, but to be used for declaring a base model or an interface to be used in mixins. Just like the embeddable models, abstract models can't be used standalone.
+An abstract model is a model that doesn't have a connection but its main purpose is not to be embeddable, but to be used for declaring a base model or an interface to be used in mixins. Just like the embeddable models, abstract models can't be used standalone.
 
 Abstract models can be used when you need models that share a common set of fields, similar models that persists in different storages, reference fields that references more than one model that share the same abstract model (interface), or models that share the same collection/table on the underlying storage. To accomplish de latter two you can set the `reference` property of the reference field or `name` property of the sub-model to the name of the abstract model respectively.
