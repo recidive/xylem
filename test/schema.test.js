@@ -7,7 +7,10 @@ var sampleSchema = {
   connection: 'ephemeral',
   fields: {
     id: 'number',
-    name: 'string',
+    name: {
+      type: 'string',
+      required: true
+    },
     active: 'boolean',
     address: 'object',
     phones: 'array'
@@ -23,6 +26,15 @@ describe('Schema#check', function(done) {
     done();
   });
 
+  it('should not allow not supplying a value for a required field', function(done) {
+    var errors = schema.check({
+      id: 123
+    });
+
+    assert.ok(errors instanceof Array);
+    assert.equal(errors[0], 'Field "name" is required.');
+    done();
+  });
 
   it('should not allow a non numeric value on a number field', function(done) {
     var errors = schema.check({
