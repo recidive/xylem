@@ -1,10 +1,11 @@
 var assert = require('assert');
-var Server = require('../');
+var Model = require('../lib/model');
 var Memory = require('../lib/memory');
-var server;
+var Contact;
 
 // Sample schema,
 var schema = {
+  name: 'contact',
   connection: 'ephemeral',
   fields: {
     id: 'number',
@@ -21,33 +22,37 @@ var sample = {
   email: 'john@example.com'
 };
 
-describe('Model', function(done) {
+describe('Model#create', function(done) {
 
   beforeEach(function(done) {
-    server = new Server();
-
-    server
-      .adapter('memory', Memory)
-      .connection('ephemeral', 'memory:///');
-
+    var connection = new Memory({});
+    Contact = Model.compile(connection, schema);
     done();
   });
 
+  it('should create and save an item when a callback is passed', function(done) {
+    Contact.create(sample, function (error, john) {
+      if (error) {
+        throw error;
+      }
 
-  it('should create a model', function(done) {
-    server.model('contact', schema);
+      assert.ok(john);
+      assert.ok(john instanceof Contact);
 
-    var Contact = server.model('contact');
+      // Get item to check it was really persisted.
+      Contact.get(sample.id, function (error, contact) {
+        if (error) {
+          throw error;
+        }
 
-    assert.ok(Contact);
-    done();
+        assert.ok(contact);
+        assert.ok(contact instanceof Contact);
+        done();
+      });
+    });
   });
 
-  it('should create and save an item of a model', function(done) {
-    server.model('contact', schema);
-
-    var Contact = server.model('contact');
-
+  it('should create an item and allow saving it later when callback is omitted', function(done) {
     // Create 'john' contact instance.
     var john = Contact.create(sample);
 
@@ -61,7 +66,7 @@ describe('Model', function(done) {
       assert.ok(john instanceof Contact);
 
       // Get item to check it was really persisted.
-      Contact.get(john.id, function (error, contact) {
+      Contact.get(sample.id, function (error, contact) {
         if (error) {
           throw error;
         }
