@@ -13,7 +13,7 @@ server
 server.model('contact', {
   connection: 'ephemeral',
   fields: {
-    id: 'string',
+    id: 'number',
     name: 'string',
     email: 'string'
   },
@@ -25,7 +25,7 @@ server.init(function() {
   var Contact = server.model('contact');
 
   // Create 'john' contact instance.
-  var john = new Contact({
+  var john = Contact.create({
     id: 1,
     name: 'John',
     email: 'john@example.com'
@@ -33,10 +33,18 @@ server.init(function() {
 
   // Save contact.
   john.save(function (error, john) {
+    if (error) {
+      throw error;
+    }
+
     console.log(john);
 
     // Get a list of contacts.
-    Contact.list({}, function (error, contacts) {
+    Contact.list(function (error, contacts) {
+      if (error) {
+        throw error;
+      }
+
       console.log(contacts);
     });
   });
