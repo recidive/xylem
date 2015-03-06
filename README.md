@@ -65,7 +65,7 @@ john.save(function (error, john) {
   });
 
   // Get a list of contacts.
-  Contact.list({}, function (error, contacts) {
+  Contact.list(function (error, contacts) {
     console.log(contacts);
   });
 });
