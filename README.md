@@ -1,4 +1,4 @@
-# ![Xylem](https://raw.githubusercontent.com/recidive/xylem/master/docs/xylem-github.png)
+# ![Xylem](https://raw.githubusercontent.com/recidive/xylem/master/docs/xylem-logo.png)
 
 Xylem provides a mechanism to persist and manipulate data on the file system, memory or a database server.
 
