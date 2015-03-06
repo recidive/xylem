@@ -59,7 +59,17 @@ describe('Model', function(done) {
 
       assert.ok(john);
       assert.ok(john instanceof Contact);
-      done();
+
+      // Get item to check it was really persisted.
+      Contact.get(john.id, function (error, contact) {
+        if (error) {
+          throw error;
+        }
+
+        assert.ok(contact);
+        assert.ok(contact instanceof Contact);
+        done();
+      });
     });
   });
 
