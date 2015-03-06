@@ -50,7 +50,7 @@ server.model('contact', {
 ```js
 var Contact = server.model('contact');
 
-var john = new Contact({
+var john = Contact.create({
   id: 1,
   name: 'John',
   email: 'john@example.com'

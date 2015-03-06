@@ -49,7 +49,7 @@ describe('Model', function(done) {
     var Contact = server.model('contact');
 
     // Create 'john' contact instance.
-    var john = new Contact(sample);
+    var john = Contact.create(sample);
 
     // Save contact.
     john.save(function (error, john) {
