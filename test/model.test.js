@@ -6,14 +6,17 @@ var samples = require('./lib/samples');
 var sample = samples[0];
 var Contact;
 
+describe('Model', function() {
 
-describe('Model#create', function(done) {
+// Indentation is -2 spaces.
 
-  beforeEach(function(done) {
-    var connection = new Memory({});
-    Contact = Model.compile(connection, schema);
-    done();
-  });
+beforeEach(function(done) {
+  var connection = new Memory({});
+  Contact = Model.compile(connection, schema);
+  done();
+});
+
+describe('#create()', function() {
 
   it('should save an item when a callback is passed', function(done) {
     Contact.create(sample, function (error, john) {
@@ -62,5 +65,7 @@ describe('Model#create', function(done) {
       });
     });
   });
+
+});
 
 });
