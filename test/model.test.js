@@ -30,7 +30,7 @@ describe('Model#create', function(done) {
     done();
   });
 
-  it('should create and save an item when a callback is passed', function(done) {
+  it('should save an item when a callback is passed', function(done) {
     Contact.create(sample, function (error, john) {
       if (error) {
         throw error;
@@ -52,7 +52,7 @@ describe('Model#create', function(done) {
     });
   });
 
-  it('should create an item and allow saving it later when callback is omitted', function(done) {
+  it('should allow saving later when callback is omitted', function(done) {
     // Create 'john' contact instance.
     var john = Contact.create(sample);
 
