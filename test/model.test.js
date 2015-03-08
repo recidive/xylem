@@ -1,19 +1,8 @@
 var assert = require('assert');
 var Model = require('../lib/model');
 var Memory = require('../lib/memory');
+var schema = require('./lib/schema');
 var Contact;
-
-// Sample schema,
-var schema = {
-  name: 'contact',
-  connection: 'ephemeral',
-  fields: {
-    id: 'number',
-    name: 'string',
-    email: 'string'
-  },
-  key: 'id'
-};
 
 // Sample data.
 var sample = {
