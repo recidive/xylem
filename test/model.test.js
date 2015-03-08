@@ -33,7 +33,7 @@ describe('Model#create', function(done) {
   it('should save an item when a callback is passed', function(done) {
     Contact.create(sample, function (error, john) {
       if (error) {
-        throw error;
+        return done(error);
       }
 
       assert.ok(john);
@@ -42,7 +42,7 @@ describe('Model#create', function(done) {
       // Get item to check it was really persisted.
       Contact.get(sample.id, function (error, contact) {
         if (error) {
-          throw error;
+          return done(error);
         }
 
         assert.ok(contact);
@@ -59,7 +59,7 @@ describe('Model#create', function(done) {
     // Save contact.
     john.save(function (error, john) {
       if (error) {
-        throw error;
+        return done(error);
       }
 
       assert.ok(john);
@@ -68,7 +68,7 @@ describe('Model#create', function(done) {
       // Get item to check it was really persisted.
       Contact.get(sample.id, function (error, contact) {
         if (error) {
-          throw error;
+          return done(error);
         }
 
         assert.ok(contact);
