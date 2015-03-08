@@ -68,4 +68,46 @@ describe('#create()', function() {
 
 });
 
+describe('#get()', function() {
+
+  beforeEach(function(done) {
+    Contact.create(sample, function (error, john) {
+      if (error) {
+        return done(error);
+      }
+      done();
+    });
+  });
+
+  it('should get an item with its key', function(done) {
+    // Get item just saved.
+    Contact.get(sample.id, function (error, contact) {
+      if (error) {
+        return done(error);
+      }
+
+      assert.ok(contact);
+      assert.ok(contact instanceof Contact);
+      done();
+    });
+  });
+
+  it('should get an item with a criteria object', function(done) {
+    // Get item with a criteria.
+    Contact.get({
+      id: sample.id
+    },
+    function (error, contact) {
+      if (error) {
+        return done(error);
+      }
+
+      assert.ok(contact);
+      assert.ok(contact instanceof Contact);
+      done();
+    });
+  });
+
+});
+
 });
