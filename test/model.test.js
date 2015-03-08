@@ -1,4 +1,5 @@
 var assert = require('assert');
+var async = require('async');
 var Model = require('../lib/model');
 var Memory = require('../lib/memory');
 var schema = require('./lib/schema');
@@ -104,6 +105,52 @@ describe('#get()', function() {
 
       assert.ok(contact);
       assert.ok(contact instanceof Contact);
+      done();
+    });
+  });
+
+});
+
+describe('#list()', function() {
+
+  beforeEach(function(done) {
+    async.each(samples, function(sample, next) {
+      Contact.create(sample, function (error, john) {
+        if (error) {
+          return next(error);
+        }
+        next();
+      });
+    }, done);
+  });
+
+  it('should list all items', function(done) {
+    // Get item with a criteria.
+    Contact.list(function (error, contacts) {
+      if (error) {
+        return done(error);
+      }
+
+      assert.ok(contacts);
+      assert.ok(contacts instanceof Array);
+      assert.equal(contacts.length, 3);
+      done();
+    });
+  });
+
+  it('should list items that match a criteria object', function(done) {
+    // Get item with a criteria.
+    Contact.list({
+      id: sample.id
+    },
+    function (error, contacts) {
+      if (error) {
+        return done(error);
+      }
+
+      assert.ok(contacts);
+      assert.ok(contacts instanceof Array);
+      assert.equal(contacts.length, 1);
       done();
     });
   });
