@@ -2,14 +2,10 @@ var assert = require('assert');
 var Model = require('../lib/model');
 var Memory = require('../lib/memory');
 var schema = require('./lib/schema');
+var samples = require('./lib/samples');
+var sample = samples[0];
 var Contact;
 
-// Sample data.
-var sample = {
-  id: 1,
-  name: 'John',
-  email: 'john@example.com'
-};
 
 describe('Model#create', function(done) {
 
