@@ -20,13 +20,14 @@ var sampleSchema = {
   key: 'id'
 };
 
-describe('Schema#check', function(done) {
+describe('Schema', function() {
 
-  beforeEach(function(done) {
-    schema = new Schema(sampleSchema);
+beforeEach(function(done) {
+  schema = new Schema(sampleSchema);
+  done();
+});
 
-    done();
-  });
+describe('#check()', function() {
 
   it('should not allow not supplying a value for a required field', function(done) {
     var errors = schema.check({
@@ -84,7 +85,6 @@ describe('Schema#check', function(done) {
     done();
   });
 
-
   it('should not allow a non array value on an array field', function(done) {
     var errors = schema.check({
       id: 123,
@@ -120,5 +120,7 @@ describe('Schema#check', function(done) {
     assert.equal(errors[0], 'Invalid value "invalid datetime" for field "lastAccess".');
     done();
   });
+
+});
 
 });
