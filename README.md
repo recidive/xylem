@@ -87,17 +87,17 @@ Save operation
 
 List operation
 
- - `beforeList(settings, query, callback)`
+ - `beforeList(settings, criteria, callback)`
  - `afterList(settings, items, callback)`
 
 Get operation
 
- - `beforeGet(settings, key, callback)`
+ - `beforeGet(settings, criteria, callback)`
  - `afterGet(settings, item, callback)`
 
 Destroy operation
 
- - `beforeDestroy(settings, key, callback)`
+ - `beforeDestroy(settings, criteria, callback)`
  - `afterDestroy(settings, item, callback)`
 
 ## Features
