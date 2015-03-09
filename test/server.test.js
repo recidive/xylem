@@ -87,6 +87,7 @@ describe('#model()', function() {
     var model = server.model('contact');
 
     assert.ok(model);
+    assert.ok(model instanceof Function);
     done();
   });
 
