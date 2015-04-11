@@ -16,18 +16,18 @@ function Server() {
  * Initialize storage server.
  *
  * @param {Function} callback Function to run when server is initialized.
- *
- * @todo Maybe not needed since we can init storage on first use (query, etc).
  */
 Server.prototype.init = function(callback) {
   this.storage.init(callback);
 };
 
 /**
- * Add an adapter.
+ * Add or get an adapter.
  *
  * @param {String} name Adapter name.
- * @param {Object} constructor Adapter constructor.
+ * @param {Object} [constructor] Adapter constructor.
+ * @return {Function|Server} Adapter constructor if constructor argument is
+ *   omitted or the Server instance itself so method calls can be chained.
  */
 Server.prototype.adapter = function(name, constructor) {
   if (!constructor) {
@@ -44,6 +44,8 @@ Server.prototype.adapter = function(name, constructor) {
  *
  * @param {String} name Connection name.
  * @param {String} url Connection settings URL.
+ * @return {Adapter|Server} Adapter instance (connection) if url argument is
+ *   omitted or the Server instance itself so method calls can be chained.
  */
 Server.prototype.connection = function(name, url) {
   if (!url) {
@@ -69,6 +71,8 @@ Server.prototype.connection = function(name, url) {
  *
  * @param {String} name Model name.
  * @param {Object} settings Model settings object.
+ * @return {Function|Server} Model constructor if settings argument is omitted
+ *   or the Server instance itself so method calls can be chained.
  */
 Server.prototype.model = function(name, settings) {
   if (!settings) {
