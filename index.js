@@ -1,5 +1,5 @@
 var url = require('url');
-var Storage = require('./lib/storage');
+var async = require('async');
 var Model = require('./lib/model');
 
 /**
@@ -9,16 +9,33 @@ var Model = require('./lib/model');
  */
 function Server() {
   this.adapters = {};
-  this.storage = new Storage();
+
+  // Connections are adapter instances.
+  this.connections = {};
+  this.models = {};
+
+  this.initialized = false;
 };
 
 /**
- * Initialize storage server.
+ * Initialize all connections.
  *
- * @param {Function} callback Function to run when server is initialized.
+ * @param {Function} callback Callback to run when sucessfull initialized.
  */
 Server.prototype.init = function(callback) {
-  this.storage.init(callback);
+  var self = this;
+  async.each(Object.keys(this.connections), function(connName, next) {
+    var connection = self.connections[connName];
+    connection.init(next);
+  },
+  function(error) {
+    if (error) {
+      return callback(error);
+    }
+
+    self.initialized = true;
+    callback();
+  });
 };
 
 /**
@@ -49,7 +66,7 @@ Server.prototype.adapter = function(name, constructor) {
  */
 Server.prototype.connection = function(name, url) {
   if (!url) {
-    return this.storage.connection(name);
+    return this.connections[name];
   }
 
   var settings = this.parseSettingsURL(url);
@@ -61,7 +78,7 @@ Server.prototype.connection = function(name, url) {
   var adapter = this.adapters[settings.adapter];
   var connection = new adapter(settings);
 
-  this.storage.connection(name, connection);
+  this.connections[name] = connection;
 
   return this;
 };
@@ -76,19 +93,19 @@ Server.prototype.connection = function(name, url) {
  */
 Server.prototype.model = function(name, settings) {
   if (!settings) {
-    return this.storage.model(name);
+    return this.models[name];
   }
 
-  var connection = this.storage.connection(settings.connection);
+  var connection = this.connection(settings.connection);
 
   if (!connection) {
-    return this.error('Unknown storage ' + settings.storage + '.');
+    return this.error('Unknown connection ' + settings.connection + '.');
   }
 
   // Add name to model settings.
   settings.name = name;
 
-  this.storage.model(name, Model.compile(connection, settings));
+  this.models[name] = Model.compile(connection, settings);
 
   return this;
 };
@@ -96,7 +113,7 @@ Server.prototype.model = function(name, settings) {
 /**
  * Parse settings URL into setting object.
  *
- * @param {String} settingsURL Storage settings URL.
+ * @param {String} settingsURL Connection settings URL.
  * @return {Object} Settings object.
  */
 Server.prototype.parseSettingsURL = function(settingsURL) {
