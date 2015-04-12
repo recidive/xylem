@@ -2,6 +2,7 @@ var assert = require('assert');
 var async = require('async');
 var Model = require('../lib/model');
 var Memory = require('../lib/memory');
+var Query = require('../lib/query');
 var schema = require('./lib/schema');
 var samples = require('./lib/samples');
 var sample = samples[0];
@@ -153,6 +154,25 @@ describe('#list()', function() {
       assert.equal(contacts.length, 1);
       done();
     });
+  });
+
+  it('should return a query object when callback is ommitted', function(done) {
+    var query = Contact.list({
+      id: sample.id
+    });
+
+    assert.ok(query instanceof Query);
+
+    query.execute(function(error, contacts) {
+      if (error) {
+        return done(error);
+      }
+
+      assert.ok(contacts);
+      assert.ok(contacts instanceof Array);
+      assert.equal(contacts.length, 1);
+      done();
+    })
   });
 
 });
