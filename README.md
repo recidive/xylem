@@ -1,8 +1,10 @@
 # ![Xylem](https://raw.githubusercontent.com/recidive/xylem/master/docs/xylem-logo.png)
 
-Xylem provides a mechanism to persist and manipulate data on the file system, memory or a database server.
+Xylem is a powerful mechanism to persist and manipulate objects on a database server, the file system or memory.
 
-Differently from other ORM/ODM tools out there, Xylem allows you to reference and combine data from different sources, making it the ultimate storage abstraction library to back a REST server, a CMS or any other data driven application.
+Xylem allows you to reference and combine data from different sources. You can use it to build a REST server, a CMS or any other data driven application.
+
+Xylem aims to be lightweight and unopinionated. Stuff like validation, id generation and high level data types is left to your application to implement.
 
 ## Getting started
 
@@ -16,7 +18,7 @@ Differently from other ORM/ODM tools out there, Xylem allows you to reference an
 
 ### Creating connections
 
-To create a connection on Xylem first you need to setup an adapter using the `adapter()` method, than you can use the `connection()` method to setup the connection itself.
+To create a connection on Xylem first you need to setup an adapter using the `adapter()` method, then you can use the `connection()` method to setup the connection itself.
 
 ```js
 var Server = require('xylem');
@@ -102,9 +104,7 @@ Destroy operation
 
 ## Features
 
- - Pluggable adapters
- - Multiple connections
- - Model relationships
+ - Multiple pluggable adapters and multiple connections
+ - Cross database model relationships
  - Model mixins
- - Embedded references
- - Query builder
+ - Embedded items
