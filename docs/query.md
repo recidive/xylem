@@ -1,7 +1,5 @@
 # Query
 
- > **Disclaimer:** this is a working in progress. Not everything documented here is implemented yet and it's subject to change.
-
 ## The criteria object
 
 The criteria object is an uniform way to query different databases based on a criteria. The criteria is made of key/value pairs and operators.
@@ -22,99 +20,70 @@ A criteria can have multiple key/value pairs that allow narrowing results by ens
 Model.list({name: 'foo', active: true});
 ```
 
-### Find matching from a list:
-
-Values can also be a list of values to allow to search for one *or* the other value.
-
-```js
-Model.list({name: ['foo', 'bar']});
-```
-
 ## Operators
 
 Operators add more flexibility to criteria by changing how the value is evaluated. Operators can be one of the following:
 
+### Comparison operators
+
+- `$eq` (equal)
+- `$ne` (not equal)
+- `$lt` (less than)
+- `$lte` (less than or equal)
+- `$gt` (greater than)
+- `$gte` (greater than or equal)
+- `$in`
+- `$nin` (not in)
+
 ### Logical operators
 
- - `or`
- - `not`
+ - `$or`
+ - `$and`
+ - `$nor`
+ - `$not`
 
-### String comparison operators
+### The `$eq` and `$ne` operators
 
- - `contains`
- - `startsWith`
- - `endsWith`
-
-### Numeric comparison operators
-
- - `lessThan`
- - `lessThanOrEqual`
- - `greaterThan`
- - `greaterThanOrEqual`
-
-
-### The `or` operator
-
-The `or` operator receives a query and makes it matches one *or* the other values instead of *and* as it does by default.
+The `$eq` operator is the default operator and matches values that are *equal* (==) the operator value. Just like the `$eq` operator we have the `$ne` with matches values that are *not equal* (!=) the operator value.
 
 ```js
-Model.list({or: {name: 'foo', active: true}});
+Model.list({name: {$eq: 'foo'}});
 ```
 
-### The `not` operator
-
-The `not` operator receives a query and return its reverse. I.e. everything it matches will be filtered out.
+Is the same as:
 
 ```js
-Model.list({not: {name: 'foo'}});
+Model.list({name: 'foo'});
 ```
 
-For convenience you can also use the `not` operator on field values.
+### The `$lt`, `$lte`, `$gt` and `$gte` operators
+
+The `$lt`, `$lte`, `$gt` and  `$gte` operators match numeric values that are less than (`$lt`) or greater (`$gt`) than the operator value, allowing the value itself to be included or not on the matched items (`$lte` and `$gte`).
 
 ```js
-Model.list({name: {not: 'foo'}});
+Model.list({points: {$gt: 100}, age: {$gte: 18}});
 ```
 
-Both examples above should have the same results but the latter may be more optimized depending on the adapter implementation.
+### The `$in` and `$nin` operators
 
-### The `contains` operator
-
-The `contains` operator allows searching for a string within another and will match values that contains the string in any position.
+The `$in` operator matches *any* of the values in the given array. Just like the `$in` operator we have the `$nin` with matches *none* of the values in the given array.
 
 ```js
-Model.list({name: {contains: 'foo'}});
+Model.list({name: {$in: ['foo', 'bar']}});
 ```
 
-### The `startsWith` operator
+### The `$or`, `$and` and `$nor` operators
 
-The `startsWith` operator allows searching for a string within another and will match values that start with the string.
+The `$or` operator receives an array of expressions return items that match *one* of the expressions while the `$and` operator return items that match *all* expressions. The `$nor` operator does the inverse of `$or`, i.e. it exclude from the results items that match *one* of the expressions.
 
 ```js
-Model.list({name: {startsWith: 'foo'}});
+Model.list({$or: [{name: 'foo'}, {active: true}]});
 ```
 
-### The `endsWith` operator
+### The `$not` operator
 
-The `endsWith` operator allows searching for a string within another and will match values that end with the string.
+The `$not` operator inverts the result of the provided expression.
 
 ```js
-Model.list({name: {endsWith: 'foo'}});
+Model.list({points: {$not: {$lt: 100}}});
 ```
-
-### The `lessThan`, `lessThanOrEqual`, `greaterThan` and `greaterThanOrEqual` operators
-
-The `lessThan`, `lessThanOrEqual`, `greaterThan` and  `greaterThanOrEqual` operators allows matching numeric values that are less than or greater than the operator value, allowing the value itself to be included or not on the matched items.
-
-```js
-Model.list({points: {greaterThan: 100}, age: {greatherThanOrEqual: 18}});
-```
-
-### Reserved words (field names)
-
-Due to operators being standard object properties, no field can be named the same as any of the nine operators (`or`, `not`, `contains`, `startsWith`, `endsWith`, `lessThan`, `lessThanOrEqual`, `greaterThan`, `greaterThanOrEqual`).
-
-## FAQ
-
-### Why object notation instead of chained methods for building the query?
-
-The short answer for this, is for queries to be portable i.e. this way they can live in JSON files or even be sent as query string or the HTTP POST body.
