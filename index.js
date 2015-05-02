@@ -96,16 +96,10 @@ Server.prototype.model = function(name, settings) {
     return this.models[name];
   }
 
-  var connection = this.connection(settings.connection);
-
-  if (!connection) {
-    return this.error('Unknown connection ' + settings.connection + '.');
-  }
-
   // Add name to model settings.
   settings.name = name;
 
-  this.models[name] = Model.compile(connection, settings);
+  this.models[name] = Model.compile(this, settings);
 
   return this;
 };

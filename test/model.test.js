@@ -3,6 +3,7 @@ var async = require('async');
 var Model = require('../lib/model');
 var Memory = require('../lib/memory');
 var Query = require('../lib/query');
+var helper = require('./lib/helper');
 var schema = require('./lib/schema');
 var samples = require('./lib/samples');
 var sample = samples[0];
@@ -13,9 +14,12 @@ describe('Model', function() {
 // Indentation is -2 spaces.
 
 beforeEach(function(done) {
-  var connection = new Memory({});
-  Contact = Model.compile(connection, schema);
-  done();
+  var server = helper.server();
+
+  // Create Contact model programmatically for testing.
+  Contact = Model.compile(server, schema);
+
+  server.init(done);
 });
 
 describe('#create()', function() {
