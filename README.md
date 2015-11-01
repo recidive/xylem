@@ -1,6 +1,6 @@
 # ![Xylem](https://raw.githubusercontent.com/recidive/xylem/master/docs/xylem-logo.png)
 
-Xylem is a powerful mechanism to persist and manipulate objects on a database server, the file system or memory.
+Xylem is a powerful mechanism to persist and manipulate objects on a database server, file system or memory.
 
 Xylem allows you to reference and combine data from different sources. You can use it to build a REST server, a CMS or any other data driven application.
 
