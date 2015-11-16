@@ -1,8 +1,10 @@
+'use strict'
+
 /**
  * Sample schema.
  */
 
-var schema = {};
+const schema = {};
 
 schema.address = {
   name: 'address',

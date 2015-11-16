@@ -1,9 +1,12 @@
-var assert = require('assert');
-var Schema = require('../lib/schema');
+'use strict'
+
+const assert = require('assert');
+const Schema = require('../lib/schema');
+
 var schema;
 
 // Sample schema,
-var sampleSchema = {
+const sampleSchema = {
   connection: 'ephemeral',
   fields: {
     id: 'number',
@@ -20,16 +23,16 @@ var sampleSchema = {
   key: 'id'
 };
 
-describe('Schema', function() {
+describe('Schema', () => {
 
-beforeEach(function(done) {
+beforeEach((done) => {
   schema = new Schema(sampleSchema);
   done();
 });
 
-describe('#check()', function() {
+describe('#check()', () => {
 
-  it('should not allow not supplying a value for a required field', function(done) {
+  it('should not allow not supplying a value for a required field', (done) => {
     var errors = schema.check({
       id: 123
     });
@@ -39,7 +42,7 @@ describe('#check()', function() {
     done();
   });
 
-  it('should not allow a non numeric value on a number field', function(done) {
+  it('should not allow a non numeric value on a number field', (done) => {
     var errors = schema.check({
       id: 'abcd',
       name: 'John'
@@ -50,7 +53,7 @@ describe('#check()', function() {
     done();
   });
 
-  it('should not allow a non string value on a string field', function(done) {
+  it('should not allow a non string value on a string field', (done) => {
     var errors = schema.check({
       id: 123,
       name: 123
@@ -61,7 +64,7 @@ describe('#check()', function() {
     done();
   });
 
-  it('should not allow a non boolean value on a boolean field', function(done) {
+  it('should not allow a non boolean value on a boolean field', (done) => {
     var errors = schema.check({
       id: 123,
       name: 'John',
@@ -73,7 +76,7 @@ describe('#check()', function() {
     done();
   });
 
-  it('should not allow a non object value on an object field', function(done) {
+  it('should not allow a non object value on an object field', (done) => {
     var errors = schema.check({
       id: 123,
       name: 'John',
@@ -85,7 +88,7 @@ describe('#check()', function() {
     done();
   });
 
-  it('should not allow a non array value on an array field', function(done) {
+  it('should not allow a non array value on an array field', (done) => {
     var errors = schema.check({
       id: 123,
       name: 'John',
@@ -97,7 +100,7 @@ describe('#check()', function() {
     done();
   });
 
-  it('should not allow an invalid date on a date field', function(done) {
+  it('should not allow an invalid date on a date field', (done) => {
     var errors = schema.check({
       id: 123,
       name: 'John',
@@ -109,7 +112,7 @@ describe('#check()', function() {
     done();
   });
 
-  it('should not allow an invalid date/time on a datetime field', function(done) {
+  it('should not allow an invalid date/time on a datetime field', (done) => {
     var errors = schema.check({
       id: 123,
       name: 'John',

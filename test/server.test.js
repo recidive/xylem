@@ -1,24 +1,27 @@
-var assert = require('assert');
-var Server = require('../');
-var Memory = require('../lib/memory');
+'use strict'
+
+const assert = require('assert');
+const Server = require('../');
+const Memory = require('../lib/memory');
+
 var server;
 
-describe('Server', function() {
+describe('Server', () => {
 
 // Indentation is -2 spaces.
 
-beforeEach(function(done) {
+beforeEach((done) => {
   server = new Server();
   done();
 });
 
-describe('#adapter()', function() {
+describe('#adapter()', () => {
 
-  it('should register an adapter', function(done) {
+  it('should register an adapter', (done) => {
     server
       .adapter('memory', Memory);
 
-    var adapter = server.adapter('memory');
+    let adapter = server.adapter('memory');
 
     assert.ok(adapter);
     assert.equal(adapter, Memory);
@@ -27,14 +30,14 @@ describe('#adapter()', function() {
 
 });
 
-describe('#connection()', function() {
+describe('#connection()', () => {
 
-  it('should add a connection', function(done) {
+  it('should add a connection', (done) => {
     server
       .adapter('memory', Memory)
       .connection('ephemeral', 'memory:///');
 
-    var connection = server.connection('ephemeral');
+    let connection = server.connection('ephemeral');
 
     assert.ok(connection);
     assert.ok(connection instanceof Memory);
@@ -43,14 +46,14 @@ describe('#connection()', function() {
 
 });
 
-describe('#init()', function() {
+describe('#init()', () => {
 
-  it('should initialize', function(done) {
+  it('should initialize', (done) => {
     server
       .adapter('memory', Memory)
       .connection('ephemeral', 'memory:///');
 
-    server.init(function(error) {
+    server.init((error) => {
       if (error) {
         return done(error);
       }
@@ -69,11 +72,11 @@ function createConnection(done) {
   server.init(done);
 }
 
-describe('#model()', function() {
+describe('#model()', () => {
 
   beforeEach(createConnection);
 
-  it('should add a model', function(done) {
+  it('should add a model', (done) => {
     server.model('contact', {
       connection: 'ephemeral',
       fields: {
@@ -84,7 +87,7 @@ describe('#model()', function() {
       key: 'id'
     });
 
-    var model = server.model('contact');
+    let model = server.model('contact');
 
     assert.ok(model);
     assert.ok(model instanceof Function);

@@ -1,8 +1,10 @@
+'use strict'
+
 /**
  * Sample data.
  */
 
-var samples = [
+const samples = [
   {
     id: 1,
     name: 'John',

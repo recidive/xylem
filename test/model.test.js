@@ -1,12 +1,15 @@
-var assert = require('assert');
-var async = require('async');
-var Model = require('../lib/model');
-var Memory = require('../lib/memory');
-var Query = require('../lib/query');
-var helper = require('./lib/helper');
-var schema = require('./lib/schema');
-var samples = require('./lib/samples');
-var sample = samples[0];
+'use strict'
+
+const assert = require('assert');
+const async = require('async');
+const Model = require('../lib/model');
+const Memory = require('../lib/memory');
+const Query = require('../lib/query');
+const helper = require('./lib/helper');
+const schema = require('./lib/schema');
+const samples = require('./lib/samples');
+const sample = samples[0];
+
 var Contact;
 var AddressBook;
 
@@ -14,7 +17,7 @@ describe('Model', function() {
 
 // Indentation is -2 spaces.
 
-beforeEach(function(done) {
+beforeEach((done) => {
   var server = helper.server();
 
   // Create Contact model programmatically for testing.
@@ -25,7 +28,7 @@ beforeEach(function(done) {
 
 describe('#create()', function() {
 
-  it('should save an item when a callback is passed', function(done) {
+  it('should save an item when a callback is passed', (done) => {
     Contact.create(sample, function (error, john) {
       if (error) {
         return done(error);
@@ -47,7 +50,7 @@ describe('#create()', function() {
     });
   });
 
-  it('should allow saving later when callback is omitted', function(done) {
+  it('should allow saving later when callback is omitted', (done) => {
     // Create 'john' contact instance.
     var john = Contact.create(sample);
 
@@ -77,7 +80,7 @@ describe('#create()', function() {
 
 describe('#get()', function() {
 
-  beforeEach(function(done) {
+  beforeEach((done) => {
     Contact.create(sample, function (error, john) {
       if (error) {
         return done(error);
@@ -86,7 +89,7 @@ describe('#get()', function() {
     });
   });
 
-  it('should get an item with its key', function(done) {
+  it('should get an item with its key', (done) => {
     // Get item just saved.
     Contact.get(sample.id, function (error, contact) {
       if (error) {
@@ -99,7 +102,7 @@ describe('#get()', function() {
     });
   });
 
-  it('should get an item with a criteria object', function(done) {
+  it('should get an item with a criteria object', (done) => {
     // Get item with a criteria.
     Contact.get({
       id: sample.id
@@ -132,7 +135,7 @@ describe('#list()', function() {
 
   beforeEach(createMultipleSamples);
 
-  it('should list all items', function(done) {
+  it('should list all items', (done) => {
     Contact.list(function (error, contacts) {
       if (error) {
         return done(error);
@@ -145,7 +148,7 @@ describe('#list()', function() {
     });
   });
 
-  it('should list items that match a criteria object', function(done) {
+  it('should list items that match a criteria object', (done) => {
     Contact.list({
       id: sample.id
     },
@@ -161,7 +164,7 @@ describe('#list()', function() {
     });
   });
 
-  it('should return a query object when callback is ommitted', function(done) {
+  it('should return a query object when callback is ommitted', (done) => {
     var query = Contact.list({
       id: sample.id
     });
@@ -186,7 +189,7 @@ describe('#update()', function() {
 
   beforeEach(createMultipleSamples);
 
-  it('should update an item by its key', function(done) {
+  it('should update an item by its key', (done) => {
     var newEmail = 'newemail@example.com';
 
     Contact.update(sample.id, {
@@ -205,7 +208,7 @@ describe('#update()', function() {
     });
   });
 
-  it('should update items that match a criteria', function(done) {
+  it('should update items that match a criteria', (done) => {
     var newEmail = 'newemail@example.com';
 
     Contact.update({
@@ -233,7 +236,7 @@ describe('#destroy()', function() {
 
   beforeEach(createMultipleSamples);
 
-  it('should destroy an item by its key', function(done) {
+  it('should destroy an item by its key', (done) => {
     Contact.destroy(sample.id, function (error, contacts) {
       if (error) {
         return done(error);
@@ -254,7 +257,7 @@ describe('#destroy()', function() {
     });
   });
 
-  it('should destroy items that match a criteria', function(done) {
+  it('should destroy items that match a criteria', (done) => {
     Contact.destroy({
       id: sample.id
     },
