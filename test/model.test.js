@@ -8,6 +8,7 @@ var schema = require('./lib/schema');
 var samples = require('./lib/samples');
 var sample = samples[0];
 var Contact;
+var AddressBook;
 
 describe('Model', function() {
 
@@ -17,7 +18,7 @@ beforeEach(function(done) {
   var server = helper.server();
 
   // Create Contact model programmatically for testing.
-  Contact = Model.compile(server, schema);
+  Contact = Model.compile(server, schema.contact);
 
   server.init(done);
 });
