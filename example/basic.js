@@ -1,8 +1,10 @@
-var Server = require('../');
-var Memory = require('../lib/memory');
+'use strict'
+
+const Server = require('../');
+const Memory = require('../lib/memory');
 
 // Create server.
-var server = new Server();
+const server = new Server();
 
 // Set adapters and create connections.
 server
@@ -22,10 +24,10 @@ server.model('contact', {
 
 server.init(function() {
   // Get 'contact' model.
-  var Contact = server.model('contact');
+  const Contact = server.model('contact');
 
   // Create 'john' contact instance.
-  var john = Contact.create({
+  let john = Contact.create({
     id: 1,
     name: 'John',
     email: 'john@example.com'
@@ -37,7 +39,7 @@ server.init(function() {
       throw error;
     }
 
-    console.log(john);
+    console.log(john, 'save()');
 
     // Get a list of contacts.
     Contact.list(function (error, contacts) {
@@ -45,7 +47,7 @@ server.init(function() {
         throw error;
       }
 
-      console.log(contacts);
+      console.log(contacts, 'list()');
     });
   });
 });
