@@ -10,9 +10,7 @@ const Model = require('./lib/model');
 class Server {
 
   /**
-   * Xylem server.
-   *
-   * @constructor
+   * Xylem server constructor.
    */
   constructor() {
     this.adapters = {};
@@ -20,7 +18,6 @@ class Server {
     // Connections are adapter instances.
     this.connections = {};
     this.models = {};
-
     this.initialized = false;
   }
 
