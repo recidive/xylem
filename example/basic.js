@@ -9,45 +9,43 @@ const server = new Server();
 // Set adapters and create connections.
 server
   .adapter('memory', Memory)
-  .connection('ephemeral', 'memory:///');
+  .connection('ephemeral', 'memory:///')
 
-// Create 'contact' model.
-server.model('contact', {
-  connection: 'ephemeral',
-  fields: {
-    id: 'number',
-    name: 'string',
-    email: 'string'
-  },
-  key: 'id'
-});
+  // Create 'contact' model.
+  .model('contact', {
+    connection: 'ephemeral',
+    fields: {
+      id: 'number',
+      name: 'string',
+      email: 'string'
+    },
+    key: 'id'
+  });
 
-server.init(function() {
-  // Get 'contact' model.
-  const Contact = server.model('contact');
+// Get 'contact' model.
+const Contact = server.model('contact');
 
+server.init(() => {
   // Create 'john' contact instance.
-  let john = Contact.create({
+  let john = new Contact({
     id: 1,
     name: 'John',
     email: 'john@example.com'
   });
 
   // Save contact.
-  john.save(function (error, john) {
-    if (error) {
+  john.save((error, john) => {
+    if (error)
       throw error;
-    }
 
-    console.log(john, 'save()');
+    console.log(john, 'John');
 
     // Get a list of contacts.
-    Contact.list(function (error, contacts) {
-      if (error) {
+    Contact.list((error, contacts) => {
+      if (error)
         throw error;
-      }
 
-      console.log(contacts, 'list()');
+      console.log(contacts, 'Contacts');
     });
   });
 });
